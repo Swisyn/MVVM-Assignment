@@ -23,7 +23,6 @@ class FeedsFragment : Fragment() {
 
     private val feedListAdapter: FeedListAdapter = FeedListAdapter { feedItem ->
         feedItem.id?.let { vehicleId ->
-
             viewModel.getVehicleNotes(vehicleId = vehicleId)?.let { notes ->
                 if (notes.isNotEmpty()) {
                     AlertDialog.Builder(requireActivity()).setTitle(R.string.vehicle_notes_title)

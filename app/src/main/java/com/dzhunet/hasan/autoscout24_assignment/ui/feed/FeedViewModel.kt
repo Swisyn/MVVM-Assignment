@@ -12,14 +12,13 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeedViewModel @Inject constructor(
-    private val feedListRepository: FeedListRepository,
+    feedListRepository: FeedListRepository,
     private val notesRepository: NotesRepository
 ) : ViewModel() {
 
     private var vehicleNotes: MutableList<NoteResultModelItem>? = null
 
     val getFeeds = feedListRepository.getFeeds()
-
 
     init {
         GlobalScope.launch(Dispatchers.IO) {

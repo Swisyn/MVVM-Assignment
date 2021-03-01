@@ -8,21 +8,69 @@ import com.dzhunet.hasan.autoscout24_assignment.R
 import com.dzhunet.hasan.autoscout24_assignment.data.network.responses.FeedResultModel
 import com.dzhunet.hasan.autoscout24_assignment.databinding.ItemFeedBinding
 import com.dzhunet.hasan.autoscout24_assignment.ui.feed.adapter.FeedItemPhotoSliderAdapter
-import com.dzhunet.hasan.autoscout24_assignment.utils.orElse
+import com.dzhunet.hasan.autoscout24_assignment.utils.*
 import java.text.NumberFormat
 import java.util.*
 
-class FeedViewHolder(private val context: Context, private val onItemClick: (FeedResultModel) -> Unit, private val binding: ItemFeedBinding) :
+class FeedViewHolder(
+    private val context: Context,
+    private val onItemClick: (FeedResultModel) -> Unit,
+    private val binding: ItemFeedBinding
+) :
     RecyclerView.ViewHolder(binding.root) {
 
     private val feedPhotoSliderAdapter = FeedItemPhotoSliderAdapter()
-    private val defaultLocale = Locale("en", "DE")
 
     init {
         binding.viewPagerSliderImages.adapter = feedPhotoSliderAdapter
     }
 
     fun onBind(item: FeedResultModel) {
+        setupSlider(item)
+
+        binding.textViewCarTitle.text = context.getString(
+                R.string.car_title_placeholder,
+                item.make,
+                item.model,
+                item.modelline.orEmpty()
+            )
+        binding.textViewCarPrice.text = item.price.asCurrency
+        binding.textViewCarDescription.text = item.description
+
+        item.firstRegistration?.let { firstRegistration ->
+            binding.textViewFirstRegistration.text = firstRegistration
+        }.orElse {
+            binding.linearLayoutFirstRegistrationContainer.gone()
+        }
+
+        item.fuel?.let { fuelType ->
+            binding.textViewCarFuel.text = fuelType
+        }.orElse {
+            binding.linearLayoutFuelContainer.gone()
+        }
+
+        item.mileage?.let { mileage ->
+            binding.textViewCarMileage.text = context.getString(
+                R.string.mileage_placeholder,
+                NumberFormat.getInstance(Constants.DEFAULT_LOCALE).format(mileage)
+            )
+        }.orElse {
+            binding.linearLayoutMileageContainer.gone()
+        }
+
+        item.seller?.let {
+            binding.textViewSellerDetails.text =
+                context.getString(R.string.seller_details_placeholder, it.type, it.phone, it.city)
+        }.orElse {
+            binding.linearLayoutSellerContainer.gone()
+        }
+
+        itemView.setOnClickListener {
+            onItemClick.invoke(item)
+        }
+    }
+
+    private fun setupSlider(item: FeedResultModel) {
         item.images?.let { images ->
             feedPhotoSliderAdapter.submitList(images)
             setSliderPage(1, images)
@@ -38,42 +86,8 @@ class FeedViewHolder(private val context: Context, private val onItemClick: (Fee
                 }
             })
         }.orElse {
-            binding.constraintLayoutSliderContainer.visibility = View.GONE
-            binding.imageViewNoPhoto.visibility = View.VISIBLE
-        }
-
-        binding.textViewCarTitle.text =
-            context.getString(
-                R.string.car_title_placeholder,
-                item.make,
-                item.model,
-                item.modelline.orEmpty()
-            )
-
-        binding.textViewCarPrice.text =
-            NumberFormat.getCurrencyInstance(defaultLocale).format(item.price)
-        binding.textViewCarDescription.text = item.description
-        binding.textViewCarFirstRegistration.text = item.firstRegistration.orEmpty()
-
-        item.mileage?.let { mileage ->
-            binding.textViewCarMileage.text = context.getString(
-                R.string.mileage_placeholder,
-                NumberFormat.getInstance(defaultLocale).format(mileage)
-            )
-        }.orElse {
-            binding.textViewCarMileage.visibility = View.GONE
-        }
-
-        item.seller?.let {
-            binding.textViewSellerDetails.text =
-                context.getString(R.string.seller_details_placeholder, it.type, it.phone, it.city)
-
-        }.orElse {
-            binding.linearLayoutSellerContainer.visibility = View.GONE
-        }
-
-        itemView.setOnClickListener {
-            onItemClick.invoke(item)
+            binding.constraintLayoutSliderContainer.gone()
+            binding.imageViewNoPhoto.visible()
         }
     }
 

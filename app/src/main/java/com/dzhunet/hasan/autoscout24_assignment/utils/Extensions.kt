@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
+import java.text.NumberFormat
 
 inline fun <R> R?.orElse(block: () -> R): R {
     return this ?: block()
@@ -27,3 +28,6 @@ fun View.gone() {
 fun View.visible() {
     if (visibility != View.VISIBLE) visibility = View.VISIBLE
 }
+
+inline val Int?.asCurrency: String
+    get() = NumberFormat.getCurrencyInstance(Constants.DEFAULT_LOCALE).format(this ?: 0)
