@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">AutoScout24 Assignment</string>
+    <string name="car_title_placeholder">%1$s %2$s %3$s</string>
+    <string name="seller_details_placeholder">%1$s, %2$s, %3$s</string>
+    <string name="mileage_placeholder">%1$s km</string>
+    <string name="slider_photo_count_placeholder">%1$s/%2$s</string>
+    <string name="vehicle_notes_title">Vehicle Notes</string>
+    <string name="error_generic_title">Error</string>
+    <string name="error_generic_description">Unexpected error occured. %1$s</string>
+    <string name="retry">Retry</string>
+</resources>
