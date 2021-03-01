@@ -9,12 +9,28 @@ import com.dzhunet.hasan.autoscout24_assignment.ui.feed.adapter.holder.FeedItemP
 import com.dzhunet.hasan.autoscout24_assignment.utils.layoutInflater
 
 class FeedItemPhotoSliderAdapter :
-    ListAdapter<FeedResultModel.Image, FeedItemPhotoSliderViewHolder>(FeedItemPhotoSliderItemCallback()) {
+    ListAdapter<FeedResultModel.Image, FeedItemPhotoSliderViewHolder>(
+        FeedItemPhotoSliderItemCallback()
+    ) {
+
+    private var onItemClick: ((FeedResultModel) -> Unit)? = null
+    private var feedResultModel: FeedResultModel? = null
+
+    fun setItemClickListener(
+        feedResultModel: FeedResultModel,
+        onItemClick: ((FeedResultModel) -> Unit)
+    ) {
+        this.feedResultModel = feedResultModel
+        this.onItemClick = onItemClick
+    }
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): FeedItemPhotoSliderViewHolder {
         return FeedItemPhotoSliderViewHolder(
+            feedItem = feedResultModel,
+            onItemClick = onItemClick,
             binding = ItemCarPhotoBinding.inflate(
                 parent.layoutInflater, parent, false
             )

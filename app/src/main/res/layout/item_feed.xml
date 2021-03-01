@@ -92,21 +92,12 @@
             tools:text="€ 39,500" />
 
         <LinearLayout
-            android:id="@+id/linear_layout_mileage_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:gravity="center"
             android:orientation="horizontal"
             android:padding="4dp">
-
-
-            <ImageView
-                android:id="@+id/image_view_mileage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_speedometer" />
 
             <TextView
                 android:id="@+id/text_view_car_mileage"
@@ -114,25 +105,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/ic_speedometer"
+                android:drawablePadding="4dp"
+                android:gravity="start|center"
                 tools:text="25.000 km" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_fuel_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <ImageView
-                android:id="@+id/image_view_fuel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_fuel_type" />
 
             <TextView
                 android:id="@+id/text_view_car_fuel"
@@ -140,25 +116,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/ic_fuel_type"
+                android:drawablePadding="4dp"
+                android:gravity="start|center"
                 tools:text="Benzin" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_layout_first_registration_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="4dp">
-
-            <ImageView
-                android:id="@+id/image_view_first_registration"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_date" />
 
             <TextView
                 android:id="@+id/text_view_first_registration"
@@ -166,8 +127,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
+                android:drawableStart="@drawable/ic_date"
+                android:drawablePadding="4dp"
+                android:gravity="start|center"
                 tools:text="01-2021" />
-
         </LinearLayout>
 
         <LinearLayout

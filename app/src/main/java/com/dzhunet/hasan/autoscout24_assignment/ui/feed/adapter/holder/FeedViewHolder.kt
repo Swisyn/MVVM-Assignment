@@ -29,24 +29,24 @@ class FeedViewHolder(
         setupSlider(item)
 
         binding.textViewCarTitle.text = context.getString(
-                R.string.car_title_placeholder,
-                item.make,
-                item.model,
-                item.modelline.orEmpty()
-            )
+            R.string.car_title_placeholder,
+            item.make,
+            item.model,
+            item.modelline.orEmpty()
+        )
         binding.textViewCarPrice.text = item.price.asCurrency
         binding.textViewCarDescription.text = item.description
 
         item.firstRegistration?.let { firstRegistration ->
             binding.textViewFirstRegistration.text = firstRegistration
         }.orElse {
-            binding.linearLayoutFirstRegistrationContainer.gone()
+            binding.textViewFirstRegistration.invisible()
         }
 
         item.fuel?.let { fuelType ->
             binding.textViewCarFuel.text = fuelType
         }.orElse {
-            binding.linearLayoutFuelContainer.gone()
+            binding.textViewCarFuel.invisible()
         }
 
         item.mileage?.let { mileage ->
@@ -55,7 +55,7 @@ class FeedViewHolder(
                 NumberFormat.getInstance(Constants.DEFAULT_LOCALE).format(mileage)
             )
         }.orElse {
-            binding.linearLayoutMileageContainer.gone()
+            binding.textViewCarMileage.invisible()
         }
 
         item.seller?.let {
@@ -73,6 +73,10 @@ class FeedViewHolder(
     private fun setupSlider(item: FeedResultModel) {
         item.images?.let { images ->
             feedPhotoSliderAdapter.submitList(images)
+            feedPhotoSliderAdapter.setItemClickListener(
+                feedResultModel = item,
+                onItemClick = onItemClick
+            )
             setSliderPage(1, images)
             binding.viewPagerSliderImages.registerOnPageChangeCallback(object :
                 ViewPager2.OnPageChangeCallback() {
